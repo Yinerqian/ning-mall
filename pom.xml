@@ -9,7 +9,11 @@
 
     <modules>
         <module>gulimall-product</module>
+        <module>gulimall-member</module>
         <module>gulimall-common</module>
+        <module>gulimall-coupon</module>
+        <module>gulimall-order</module>
+        <module>gulimall-ware</module>
     </modules>
 
     <properties>
@@ -17,6 +21,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
+        <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
     </properties>
 
 
