@@ -9,7 +9,11 @@ import com.atguigu.gulimall.product.service.CategoryService;
 import cn.hutool.core.util.StrUtil;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * 商品三级分类
@@ -31,4 +35,26 @@ public class CategoryServiceImpl extends CrudServiceImpl<CategoryDao, CategoryEn
     }
 
 
+    @Override
+    public List<CategoryEntity> listCategoryTree() {
+        List<CategoryEntity> list = baseDao.selectList(null);
+
+        List<CategoryEntity> level1CategoryList = list.stream()
+                .filter(categoryEntity -> categoryEntity.getParentCid() == 0)
+                .map(rootMenu -> {rootMenu.setChildren(getChildren(rootMenu, list));return rootMenu;})
+                .sorted(Comparator.comparingInt(CategoryEntity::getSort))
+                .collect(Collectors.toList());
+
+        return level1CategoryList;
+    }
+
+    List<CategoryEntity> getChildren(CategoryEntity root, List<CategoryEntity> all) {
+
+        List<CategoryEntity> result = all.stream()
+                .filter(categoryEntity -> categoryEntity.getParentCid() == root.getCatId())
+                .map(categoryEntity -> {categoryEntity.setChildren(getChildren(categoryEntity, all)); return categoryEntity;})
+                .collect(Collectors.toList());
+
+        return result;
+    }
 }

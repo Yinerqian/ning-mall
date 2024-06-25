@@ -11,6 +11,7 @@ import com.atguigu.gulimall.common.validator.group.AddGroup;
 import com.atguigu.gulimall.common.validator.group.DefaultGroup;
 import com.atguigu.gulimall.common.validator.group.UpdateGroup;
 import com.atguigu.gulimall.product.dto.CategoryDTO;
+import com.atguigu.gulimall.product.entity.CategoryEntity;
 import com.atguigu.gulimall.product.excel.CategoryExcel;
 import com.atguigu.gulimall.product.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +33,12 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("page")
+    @GetMapping("listCategoryTree")
     //@RequiresPermissions("product:category:page")
-    public Result<PageData<CategoryDTO>> page(@RequestParam Map<String, Object> params){
-        PageData<CategoryDTO> page = categoryService.page(params);
+    public Result<List<CategoryEntity>> listCategoryTree(){
+        List<CategoryEntity> categoryTree = categoryService.listCategoryTree();
 
-        return new Result<PageData<CategoryDTO>>().ok(page);
+        return new Result<List<CategoryEntity>>().ok(categoryTree);
     }
 
     @GetMapping("{id}")
