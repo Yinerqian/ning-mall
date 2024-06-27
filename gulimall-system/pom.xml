@@ -38,11 +38,6 @@
         </dependency>
         <dependency>
             <groupId>com.celi</groupId>
-            <artifactId>cii-csa-common</artifactId>
-            <version>${revision}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.celi</groupId>
             <artifactId>cii-csa-sys</artifactId>
             <version>${revision}</version>
         </dependency>
