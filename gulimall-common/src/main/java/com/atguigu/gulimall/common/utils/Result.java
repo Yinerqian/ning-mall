@@ -28,14 +28,16 @@ public class Result<T> implements Serializable {
     /**
      * 消息内容
      */
-    private String msg = "success";
+    private String message = "success";
+
+    private Boolean successFlag = true;
     /**
      * 响应数据
      */
-    private T data;
+    private T content;
 
-    public Result<T> ok(T data) {
-        this.setData(data);
+    public Result<T> ok(T content) {
+        this.setContent(content);
         return this;
     }
 
@@ -45,25 +47,41 @@ public class Result<T> implements Serializable {
 
     public Result<T> error() {
         this.code = ErrorCode.INTERNAL_SERVER_ERROR;
-        this.msg = MessageUtils.getMessage(this.code);
+        this.message = MessageUtils.getMessage(this.code);
         return this;
     }
 
     public Result<T> error(int code) {
         this.code = code;
-        this.msg = MessageUtils.getMessage(this.code);
+        this.message = MessageUtils.getMessage(this.code);
         return this;
     }
 
     public Result<T> error(int code, String msg) {
         this.code = code;
-        this.msg = msg;
+        this.message = msg;
         return this;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Boolean getSuccessFlag() {
+        return successFlag;
+    }
+
+    public void setSuccessFlag(Boolean successFlag) {
+        this.successFlag = successFlag;
     }
 
     public Result<T> error(String msg) {
         this.code = ErrorCode.INTERNAL_SERVER_ERROR;
-        this.msg = msg;
+        this.message = msg;
         return this;
     }
 
@@ -76,18 +94,19 @@ public class Result<T> implements Serializable {
     }
 
     public String getMsg() {
-        return msg;
+        return message;
     }
 
     public void setMsg(String msg) {
-        this.msg = msg;
+        this.message = msg;
     }
 
-    public T getData() {
-        return data;
+    public T getContent() {
+        return content;
     }
 
-    public void setData(T data) {
-        this.data = data;
+    public void setContent(T content) {
+        this.content = content;
     }
+
 }
