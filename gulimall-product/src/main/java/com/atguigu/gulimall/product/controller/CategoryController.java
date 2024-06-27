@@ -28,7 +28,7 @@ import java.util.Map;
  * @since 1.0.0 2024-06-19
  */
 @RestController
-@RequestMapping("product/category")
+@RequestMapping("${url.prefix}/product")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
