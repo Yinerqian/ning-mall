@@ -1,7 +1,7 @@
 server:
-  port: 12000
+  port: 13000
 url:
-  prefix: wms
+  prefix: gulimall-file
   white-list: /logout
 
 spring:
@@ -10,22 +10,31 @@ spring:
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://121.41.131.172/gulimall_wms?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
-
-  application:
-    name: gulimall-ware
   cloud:
-    nacos:
-      discovery:
-        server-addr: 121.41.131.172:8848
+    alicloud:
+      access-key: LTAI5tCTrAv3hw5ajBMCaQZ8
+      secret-key: gq2q8qPss3aydEYW7yHwu57hrjkf15
+      oss:
+        endpoint: http://oss-cn-nanjing.aliyuncs.com
+  application:
+    name: gulimall-file
+#  cloud:
+#    nacos:
+#      discovery:
+#        server-addr: 121.41.131.172:8848
 
 #mybatis
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
   #实体扫描，多个package用逗号或者分号分隔
-  typeAliasesPackage: com.atguigu.gulimall.ware.entity
+  typeAliasesPackage: com.atguigu.gulimall.file.entity
   global-config:
     #数据库相关配置
     db-config:
       #主键类型
       id-type: ASSIGN_ID
     banner: false
+
+logging:
+  level:
+    com.atguigu.gulimall.file.demos.web: debug

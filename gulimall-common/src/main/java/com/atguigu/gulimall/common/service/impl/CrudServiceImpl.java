@@ -15,6 +15,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
 import java.util.Arrays;
@@ -26,6 +27,7 @@ import java.util.Map;
  *
  * @author Mark sunlightcs@gmail.com
  */
+@Slf4j
 public abstract class CrudServiceImpl<M extends BaseMapper<T>, T, D> extends BaseServiceImpl<M, T> implements CrudService<T, D> {
 
     protected Class<D> currentDtoClass() {
@@ -38,7 +40,7 @@ public abstract class CrudServiceImpl<M extends BaseMapper<T>, T, D> extends Bas
             getPage(params, null, false),
             getWrapper(params)
         );
-
+        page.setTotal(baseDao.selectCount(getWrapper(params)));
         return getPageData(page, currentDtoClass());
     }
 

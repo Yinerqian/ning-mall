@@ -50,11 +50,11 @@ public interface Constant {
     /**
      * 当前页码
      */
-    String PAGE = "page";
+    String PAGE = "pageNum";
     /**
      * 每页显示记录数
      */
-    String LIMIT = "limit";
+    String LIMIT = "pageSize";
     /**
      * 排序字段
      */

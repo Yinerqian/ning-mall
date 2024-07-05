@@ -16,6 +16,7 @@
         <module>gulimall-ware</module>
         <module>gulimall-gateway</module>
         <module>gulimall-system</module>
+        <module>gulimall-file</module>
     </modules>
 
     <properties>
