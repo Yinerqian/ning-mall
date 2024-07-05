@@ -28,7 +28,7 @@ import java.util.Map;
  * @since 1.0.0 2024-06-19
  */
 @RestController
-@RequestMapping("product/brand")
+@RequestMapping("${url.prefix}/brand")
 public class BrandController {
     @Autowired
     private BrandService brandService;

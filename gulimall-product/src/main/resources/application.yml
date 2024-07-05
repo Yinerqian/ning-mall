@@ -15,7 +15,7 @@ spring:
 
   datasource:
     username: root
-    password: root
+    password: Celi@123
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://121.41.131.172/gulimall_pms?useSSL=false&useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&serverTimezone=Asia/Shanghai&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
     hikari:
