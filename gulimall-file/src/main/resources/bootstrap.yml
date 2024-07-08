@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: gulimall-file
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 121.41.131.172:8848
+      config:
+        group: DEFAULT_GROUP
+        server-addr: 121.41.131.172:8848
+        file-extension: yaml
