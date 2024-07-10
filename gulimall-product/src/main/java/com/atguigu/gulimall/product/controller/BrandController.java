@@ -11,8 +11,10 @@ import com.atguigu.gulimall.common.validator.group.AddGroup;
 import com.atguigu.gulimall.common.validator.group.DefaultGroup;
 import com.atguigu.gulimall.common.validator.group.UpdateGroup;
 import com.atguigu.gulimall.product.dto.BrandDTO;
+import com.atguigu.gulimall.product.entity.BrandEntity;
 import com.atguigu.gulimall.product.excel.BrandExcel;
 import com.atguigu.gulimall.product.service.BrandService;
+import com.atguigu.gulimall.product.service.impl.BrandServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,49 +35,40 @@ public class BrandController {
     @Autowired
     private BrandService brandService;
 
+    @Autowired
+    private BrandServiceImpl brandServiceImpl;
+
     @GetMapping("page")
-    //@RequiresPermissions("product:brand:page")
     public Result<PageData<BrandDTO>> page(@RequestParam Map<String, Object> params){
         PageData<BrandDTO> page = brandService.page(params);
 
         return new Result<PageData<BrandDTO>>().ok(page);
     }
 
-    @GetMapping("{id}")
-    //@RequiresPermissions("product:brand:info")
-    public Result<BrandDTO> get(@PathVariable("id") Long id){
-        BrandDTO data = brandService.get(id);
+    @GetMapping("findBrandById")
+    public Result<BrandEntity> get(@RequestParam("id") Long id){
+        BrandEntity brandEntity = brandService.findBrandById(id);
 
-        return new Result<BrandDTO>().ok(data);
+        return new Result<BrandEntity>().ok(brandEntity);
     }
 
-    @PostMapping
+    //效验数据
+    @PostMapping("saveBrand")
     @LogOperation("保存")
-    //@RequiresPermissions("product:brand:save")
-    public Result save(@RequestBody BrandDTO dto){
-        //效验数据
-        ValidatorUtils.validateEntity(dto, AddGroup.class, DefaultGroup.class);
-
-        brandService.save(dto);
-
+    public Result saveBrand(@RequestBody BrandEntity brandEntity){
+        brandServiceImpl.saveBrand(brandEntity);
         return new Result();
     }
 
-    @PutMapping
+    @PutMapping("updateBrandById")
     @LogOperation("修改")
-    //@RequiresPermissions("product:brand:update")
-    public Result update(@RequestBody BrandDTO dto){
-        //效验数据
-        ValidatorUtils.validateEntity(dto, UpdateGroup.class, DefaultGroup.class);
-
-        brandService.update(dto);
-
+    public Result updateBrandById(@RequestBody BrandEntity brandEntity){
+        brandService.updateBrandById(brandEntity);
         return new Result();
     }
 
     @DeleteMapping
     @LogOperation("删除")
-    //@RequiresPermissions("product:brand:delete")
     public Result delete(@RequestBody Long[] ids){
         //效验数据
         AssertUtils.isArrayEmpty(ids, "id");
@@ -85,13 +78,11 @@ public class BrandController {
         return new Result();
     }
 
-    @GetMapping("export")
-    @LogOperation("导出")
-    //@RequiresPermissions("product:brand:export")
-    public void export(@RequestParam Map<String, Object> params, HttpServletResponse response) throws Exception {
-        List<BrandDTO> list = brandService.list(params);
-
-        ExcelUtils.exportExcelToTarget(response, null, "品牌", list, BrandExcel.class);
+    @DeleteMapping("deleteBrandById")
+    @LogOperation("删除")
+    public Result deleteBrandById(@RequestParam("id") String id){
+        brandServiceImpl.deleteBrandById(id);
+        return new Result();
     }
 
 }
